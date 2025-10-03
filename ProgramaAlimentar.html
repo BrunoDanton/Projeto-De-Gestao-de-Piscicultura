@@ -1,0 +1,90 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Piscicultura</title>
+    
+    <link rel="stylesheet" href="ProgramaAlimentar.css">
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <meta name="theme-color" content="#0056b3"/>
+</head>
+
+<body>
+    <h1><strong>Plano Alimentar Projetado - Cantinho São José</strong></h1>
+
+    <form id="form-principal">
+        <h2>1. Parâmetros Gerais</h2>
+        <div class="form-grupo">
+            <label for="qtdPeixes">Quantidade de Peixes:</label>
+            <input type="number" id="qtdPeixes" value="10000" required>
+        </div>
+
+        <h2>2. Fases de Cultivo</h2>
+        <div id="container-periodos-form">
+            </div>
+        <button type="button" id="btn-adicionar-periodo">Adicionar Fase</button>
+        <hr>
+        <button type="submit" id="btn-gerar-relatorio">Gerar Relatório</button>
+    </form>
+
+
+    <template id="template-periodo">
+        <div class="periodo-card">
+            <button type="button" class="btn-remover-periodo">X</button>
+            <div class="form-grupo">
+                <label>Nome da Fase:</label>
+                <input type="text" class="nome-periodo" required>
+            </div>
+
+            <div class="fase-header">
+                <label>Peso (De)</label>
+                <label>Peso (Até)</label>
+                <label>Ração (Descrição)</label>
+                <label>Ração (Granulometria)</label>
+                <label>Preço Ração</label>
+                <label>Tamanho da Semana</label>
+                <label>Trato Diário (%)</label>
+                <label>Tratos/Dia</label>
+            </div>
+
+            <div class="container-fases"></div>
+            <button type="button" class="btn-adicionar-fase">Adicionar Semana</button>
+        </div>
+    </template>
+
+    <template id="template-fase">
+        <div class="fase-card">
+            <input type="number" name="peso-de" class="peso-de" step="0.1" required>
+            <input type="number" name="peso-ate" class="peso-ate" step="0.1" required>
+            <input type="text" name="desc-racao" class="desc-racao" required>
+            <input type="text" name="gran-racao" class="gran-racao" required>
+            <input type="number" name="preco-racao" class="preco-racao" step="0.01" required>
+            <input type="number" name="dias-fase" class="dias-fase" required>
+            <input type="number" name="trato-diario" class="trato-diario" step="0.1" required>
+            <input type="number" name="tratos-dia" class="tratos-dia" required>
+            <button type="button" class="btn-remover-fase">-</button>
+        </div>
+    </template>
+
+    <div class="container-principal" style="display: none;">
+        <div id="container-parametros" class="coluna"></div>
+        <div id="container-tabelas" class="coluna"></div>
+    </div>
+
+    <script type="module" src="ProgramaAlimentar.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado com sucesso:', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('Falha ao registrar o Service Worker:', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

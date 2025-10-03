@@ -1,0 +1,196 @@
+
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #aeffab;
+    color: #333;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #0056b3;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 40px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: right;
+}
+
+th {
+    background-color: #0056b3;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+tbody tr:hover {
+    background-color: #e2e2e2;
+}
+/* --- ESTILOS PARA O LAYOUT DE DUAS COLUNAS --- */
+
+.container-principal {
+    display: flex; /* Ativa o layout flexbox */
+    gap: 20px; /* Cria um espaço entre as colunas */
+    align-items: flex-start; /* Alinha os itens no topo */
+}
+
+.coluna {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* A coluna da esquerda (parâmetros) terá um tamanho fixo */
+#container-parametros {
+    flex: 0 0 265px; 
+}
+
+/* A coluna da direita (tabelas) ocupará o espaço restante */
+#container-tabelas {
+    flex: 1;
+}
+
+/* Estilos para a lista de parâmetros que vamos criar */
+#container-parametros h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    text-align: left;
+}
+#container-parametros h3 {
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 25px;
+}
+#container-parametros ul {
+    list-style-type: none;
+    padding: 0;
+}
+#container-parametros li {
+    background-color: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+/* --- ESTILOS PARA O FORMULÁRIO --- */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.form-grupo {
+    margin-bottom: 15px;
+}
+.form-grupo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.form-grupo input {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #0056b3;
+}
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+#btn-gerar-relatorio {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+}
+
+.periodo-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    background-color: #f9f9f9;
+}
+.fase-card {
+    display: grid;
+    /* Cria um grid com 8 colunas de tamanho igual e 1 coluna final de 30px para o botão.
+       Isso vai alinhar os 8 inputs e 1 botão perfeitamente.
+    */
+    grid-template-columns: repeat(8, 1fr) 30px;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+.fase-card input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px; /* Aumentar um pouco o padding */
+    font-size: 0.9em;
+    border: 1px solid #ccc; /* Adicionar borda para melhor visualização */
+    border-radius: 4px; /* Adicionar bordas arredondadas */
+}
+.btn-remover-periodo, .btn-remover-fase {
+    background-color: #dc3545;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 2px 8px;
+    margin: 0;
+}
+.btn-remover-fase {
+    position: static;
+}
+
+/* Adicione esta nova regra para o cabeçalho das fases */
+.fase-header {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr) 30px; /* Mesmo layout do .fase-card */
+    gap: 10px;
+    padding: 0 10px; /* Alinhamento com os inputs */
+    margin-top: 15px;
+}
+.fase-header label {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #555;
+}
