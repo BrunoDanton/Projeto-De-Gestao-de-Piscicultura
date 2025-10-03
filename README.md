@@ -1,6 +1,6 @@
 #  Plano Alimentar para Piscicultura 🐟
 
-Calculadora e simulador para planejamento de piscicultura. Crie períodos e fases de cultivo dinamicamente para projetar o plano alimentar, estimar custos, FCR, ganho de biomassa e conversão alimentar. Uma ferramenta PWA completa, instalável e com funcionamento offline para otimizar a produção e a tomada de decisão.
+Calculadora e simulador para planejamento de piscicultura. Crie fases e semanas de cultivo dinamicamente para projetar o plano alimentar, estimar custos, FCR, ganho de biomassa e conversão alimentar. Uma ferramenta PWA completa, instalável e com funcionamento offline para otimizar a produção e a tomada de decisão.
 
 ![Screenshot do Projeto](Img%20-%20Plano%20Alimentar.png)
 
@@ -8,18 +8,18 @@ Calculadora e simulador para planejamento de piscicultura. Crie períodos e fase
 
 ## ✨ Funcionalidades
 
-* **Formulário Dinâmico:** Adicione e remova múltiplos períodos de cultivo (ex: Alevinagem, Engorda) e múltiplas fases (semanas) dentro de cada período.
-* **Preenchimento Automático:** Os dados de uma fase são automaticamente preenchidos na próxima, agilizando a inserção de dados.
-* **Cálculos Detalhados:** O sistema calcula automaticamente para cada fase:
+* **Formulário Dinâmico:** Adicione e remova múltiplas fases de cultivo (ex: Alevinagem, Engorda) e múltiplas semanas dentro de cada período.
+* **Preenchimento Automático:** Os dados de uma semana são automaticamente preenchidos na próxima, agilizando a inserção de dados.
+* **Cálculos Detalhados:** O sistema calcula automaticamente para cada semana:
     * Consumo de ração (semanal e acumulado)
     * Ganho de peso e de biomassa (semanal e acumulado)
     * Conversão alimentar (projetada e acumulada)
     * Custos com ração
-* **Acumulação Contínua:** Os valores acumulados (consumo, biomassa, etc.) continuam a contagem de um período para o outro, fornecendo uma visão geral do ciclo completo.
-* **Análise Financeira:** Calcula o custo total de cada período e o percentual que cada um representa no custo total do programa.
+* **Acumulação Contínua:** Os valores acumulados (consumo, biomassa, etc.) continuam a contagem de uma fase para a outra, fornecendo uma visão geral do ciclo completo.
+* **Análise Financeira:** Calcula o custo total de cada fase e o percentual que cada uma representa no custo total do programa.
 * **Persistência de Dados:** O formulário preenchido é salvo automaticamente no navegador (`localStorage`), para que você não perca seus dados ao fechar a página.
 * **Experiência de Aplicativo (PWA):**
-    * **Instalável:** Pode ser "instalado" no computador ou celular, ganhando um ícone na área de trabalho.
+    * **Instalável:** Pode ser "instalado" no computador, ganhando um ícone na área de trabalho.
     * **Offline:** Funciona mesmo sem conexão com a internet após o primeiro carregamento.
 
 ## 🚀 Tecnologias Utilizadas
@@ -40,7 +40,7 @@ Para rodar este projeto localmente, é necessário servi-lo através de um servi
 
 1.  Clone este repositório:
     ```bash
-    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+    git clone [https://github.com/BrunoDanton/Projeto-De-Gestão-de-Piscicultura.git](https://github.com/BrunoDanton/Projeto-De-Gestao-de-Piscicultura.git)
     ```
 2.  Abra a pasta do projeto no Visual Studio Code.
 3.  Instale a extensão [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
