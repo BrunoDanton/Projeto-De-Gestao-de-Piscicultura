@@ -2,8 +2,7 @@
 
 Calculadora e simulador para planejamento de piscicultura. Crie períodos e fases de cultivo dinamicamente para projetar o plano alimentar, estimar custos, FCR, ganho de biomassa e conversão alimentar. Uma ferramenta PWA completa, instalável e com funcionamento offline para otimizar a produção e a tomada de decisão.
 
-![Screenshot do Projeto](caminho/para/sua/imagem.png)
-*(Dica: Tire um print da tela do seu aplicativo funcionando e substitua o texto acima para mostrar como ele é!)*
+![Screenshot do Projeto](Img - Plano Alimentar.png)
 
 ---
 
