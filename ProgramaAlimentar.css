@@ -32,7 +32,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
 }
 
 th, td {
@@ -176,7 +176,7 @@ button:hover {
 
 .fase-card {
     display: grid;
-    grid-template-columns: repeat(8, 1fr) 30px;
+    grid-template-columns: repeat(7, 1fr) 30px;
     gap: 10px;
     margin-top: 10px;
     align-items: center;
@@ -208,14 +208,56 @@ button:hover {
 /* Cabeçalho da fase */
 .fase-header {
     display: grid;
-    grid-template-columns: repeat(8, 1fr) 30px;
+    grid-template-columns: repeat(7, 1fr) 30px;
     gap: 10px;
     padding: 0 10px;
     margin-top: 15px;
 }
 
+
 .fase-header label {
     font-size: 0.8em;
     font-weight: bold;
     color: #555;
+}
+
+#acoes-relatorio button {
+    padding: 12px 20px;
+    margin: 5px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+/* Botões para exportar */
+#btn-exportar-pdf {
+    background-color: #e74c3c;
+}
+#acoes-relatorio button:hover {
+    opacity: 0.85;
+}
+/* --- ESTILOS DE EXPORTAÇÃO --- */
+
+/* Classe para forçar quebra de página na impressão/PDF */
+@media print {
+    .page-break {
+        page-break-before: always;
+        break-before: page;
+    }
+}
+
+/* Quando o body tiver a classe 'exportando-pdf', aplica estes estilos: */
+body.exportando-pdf .coluna,
+body.exportando-pdf form,
+body.exportando-pdf table {
+    box-shadow: none !important;
+}
+
+/* MUDANÇA PRINCIPAL: Força um fundo uniforme nas linhas da tabela durante a exportação, 
+  eliminando o efeito zebrado que causa o bug visual.
+*/
+body.exportando-pdf tbody tr {
+    background-color: transparent !important;
 }
