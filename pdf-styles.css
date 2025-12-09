@@ -1,0 +1,60 @@
+/* Estilos super simples apenas para a geração do PDF */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+h1, h2, h3 {
+    color: #000000;
+    text-align: left;
+    border: none;
+    margin: 15px 0 5px 0;
+}
+
+h1, h2 {
+    color: #0056b3;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 40px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+
+.container-principal, .coluna {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: none !important;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 4px;
+    text-align: center;
+    font-size: 9pt; /* Reduz o tamanho da fonte para caber mais */
+}
+
+th {
+    background-color: #0056b3;
+    color:#ffffff;
+}
+
+/* Remove qualquer cor de fundo das linhas */
+tbody tr {
+    background-color: transparent !important;
+}
