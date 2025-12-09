@@ -9,7 +9,7 @@ import projeçãoConsumoAcumulado from './Funções/ProjeçãoConsumoAcumulado.j
 import projeçãoConsumoSemanal from './Funções/ProjeçãoConsumoSemanal.js';
 import raçãoDiariaPorTrato from './Funções/RaçãoDiariaPorTrato.js';
 import raçãoDiariaQtdPeixes from './Funções/RaçãoDiariaQtdPeixes.js';
-import { criarPeríodos } from './Funções/GeradorDePeríodo copy.js';
+import { criarPeríodos } from './Funções/GeradorDePeríodo.js';
 
 
 // FUNÇÃO PRINCIPAL DE CÁLCULO
@@ -196,18 +196,29 @@ function exibirResultadosNaPagina(períodosCompletos) {
         });
 
         container.appendChild(tabela);
+
+        const quebraDePagina = document.createElement("div");
+        quebraDePagina.classList.add("page-break");
+        container.appendChild(quebraDePagina);
     });
 }
 
 function exibirParametrosDeEntrada(listaPeriodos, qtdPeixes) {
     const container = document.getElementById('container-parametros');
     let html = '<h2>Parâmetros de Entrada</h2>';
-    html += `<h3>Geral</h3><ul><li>Quantidade de Peixes: ${qtdPeixes.toLocaleString('pt-BR')}</li></ul>`;
 
+    // Pega o valor dos dias diretamente do input do formulário
+    const diasPorSemana = document.getElementById('tamanhoSemana').value;
+
+    html += `<h3>Geral</h3><ul>`;
+    html += `<li>Quantidade de Peixes: ${qtdPeixes.toLocaleString('pt-BR')}</li>`;
+    html += `<li>Dias por Semana: ${diasPorSemana}</li>`; // USA A VARIÁVEL CORRETA
+    html += `</ul>`;
+
+    // A lógica para exibir os períodos continua a mesma
     listaPeriodos.forEach(([nome, qtd, dados]) => {
-        html += `<h3>Fase: ${nome} <h5>(${qtd} semana(s))</h5></h3><ul>`;
+        html += `<h3>Período: ${nome} (${qtd} fases)</h3><ul>`;
         html += `<li>Preços da Ração: [${dados.precosRacao.join(', ')}]</li>`;
-        html += `<li>Dias por Semana: [${dados.diasPorFase.join(', ')}]</li>`;
         html += `<li>Tratos por Dia: [${dados.tratosPorDia.join(', ')}]</li>`;
         html += `<li>% do P.V.: [${dados.tratosDiarios.join(', ')}]</li>`;
         html += '</ul>';
@@ -219,7 +230,7 @@ function exibirParametrosDeEntrada(listaPeriodos, qtdPeixes) {
 
 // FORMULÁRIO DINÂMICO
 
-const formPrincipal = document.getElementById('form-principal');
+const btnGerarRelatorio = document.getElementById('btn-gerar-relatorio');
 const containerPeriodosForm = document.getElementById('container-periodos-form');
 const btnAdicionarPeriodo = document.getElementById('btn-adicionar-periodo');
 const templatePeriodo = document.getElementById('template-periodo');
@@ -227,11 +238,17 @@ const templateFase = document.getElementById('template-fase');
 
 // Recarregar dados salvos 
 window.addEventListener('DOMContentLoaded', () => {
-    const dadosSalvos = JSON.parse(localStorage.getItem('dadosPiscicultura') || 'null');
-    if (!dadosSalvos) return;
+    const dadosSalvosJSON = localStorage.getItem('dadosPiscicultura');
+    if (!dadosSalvosJSON) return;
 
     try {
+        const dadosSalvos = JSON.parse(dadosSalvosJSON);
+        
+        // Preenche os parâmetros gerais
         document.getElementById('qtdPeixes').value = dadosSalvos.qtdPeixes || 10000;
+        document.getElementById('tamanhoSemana').value = dadosSalvos.diasPorFase || 7; // CORRIGIDO
+
+        // Recria os períodos e fases
         dadosSalvos.periodos.forEach(([nome, qtd, dados]) => {
             adicionarNovoPeriodo();
             const ultimoCard = [...containerPeriodosForm.querySelectorAll('.periodo-card')].pop();
@@ -240,26 +257,30 @@ window.addEventListener('DOMContentLoaded', () => {
             const containerFases = ultimoCard.querySelector('.container-fases');
             for (let i = 0; i < qtd; i++) {
                 const novaFaseCard = templateFase.content.cloneNode(true).querySelector('.fase-card');
+                
+                // Preenche os dados de cada fase (sem o campo 'dias-fase')
                 novaFaseCard.querySelector('.peso-de').value = dados.pesos[i].de;
                 novaFaseCard.querySelector('.peso-ate').value = dados.pesos[i].ate;
                 novaFaseCard.querySelector('.desc-racao').value = dados.descriçõesRacao[i];
                 novaFaseCard.querySelector('.gran-racao').value = dados.granulometrias[i];
                 novaFaseCard.querySelector('.preco-racao').value = dados.precosRacao[i];
-                novaFaseCard.querySelector('.dias-fase').value = dados.diasPorFase[i];
+                // LINHA COM ERRO REMOVIDA DAQUI
                 novaFaseCard.querySelector('.trato-diario').value = dados.tratosDiarios[i];
                 novaFaseCard.querySelector('.tratos-dia').value = dados.tratosPorDia[i];
                 containerFases.appendChild(novaFaseCard);
             }
         });
-    } catch {
+    } catch (error) {
+        console.error("Erro ao carregar dados salvos:", error);
         localStorage.removeItem('dadosPiscicultura');
     }
 });
 
 // Adicionar/Remover Períodos e Fases 
 function adicionarNovoPeriodo() {
-    const periodoCard = templatePeriodo.content.cloneNode(true).querySelector('.periodo-card');
-    containerPeriodosForm.appendChild(periodoCard);
+    // Agora clona o template inteiro e o adiciona
+    const clonePeriodo = templatePeriodo.content.cloneNode(true);
+    containerPeriodosForm.appendChild(clonePeriodo);
 }
 btnAdicionarPeriodo.addEventListener('click', adicionarNovoPeriodo);
 
@@ -285,10 +306,10 @@ containerPeriodosForm.addEventListener('click', (e) => {
 });
 
 // Submissão do formulário
-formPrincipal.addEventListener('submit', (e) => {
-    e.preventDefault();
-
+btnGerarRelatorio.addEventListener('click', () => {
     const qtdPeixes = parseFloat(document.getElementById('qtdPeixes').value);
+    const diasPorFaseGeral = parseInt(document.getElementById('tamanhoSemana').value);
+
     const meusPeríodosComDados = [...containerPeriodosForm.querySelectorAll('.periodo-card')].map(card => {
         const nome = card.querySelector('.nome-periodo').value;
         const fasesCards = [...card.querySelectorAll('.fase-card')];
@@ -302,7 +323,8 @@ formPrincipal.addEventListener('submit', (e) => {
                 de: parseFloat(f.querySelector('.peso-de').value),
                 ate: parseFloat(f.querySelector('.peso-ate').value)
             })),
-            diasPorFase: fasesCards.map(f => parseInt(f.querySelector('.dias-fase').value)),
+            
+            diasPorFase: Array(qtd).fill(diasPorFaseGeral), // Cria um array com o valor repetido 'qtd' vezes
             tratosDiarios: fasesCards.map(f => parseFloat(f.querySelector('.trato-diario').value)),
             tratosPorDia: fasesCards.map(f => parseInt(f.querySelector('.tratos-dia').value))
         };
@@ -317,4 +339,51 @@ formPrincipal.addEventListener('submit', (e) => {
     document.querySelector('.container-principal').style.display = 'flex';
     exibirParametrosDeEntrada(meusPeríodosComDados, qtdPeixes);
     exibirResultadosNaPagina(resultadoFinal);
+});
+
+
+// ==========================================================
+// FUNÇÕES DE EXPORTAÇÃO DE RELATÓRIOS (VERSÃO CORRIGIDA)
+// ==========================================================
+
+document.getElementById('btn-exportar-pdf').addEventListener('click', () => {
+    const elementoParaImprimir = document.querySelector('#container-tabelas');
+
+    if (!elementoParaImprimir || elementoParaImprimir.offsetParent === null) {
+        alert("⚠️ Gere o relatório antes de exportar para PDF.");
+        return;
+    }
+
+    // Estilos e opções
+    const linkEstiloPrincipal = document.querySelector('link[href="ProgramaAlimentar.css"]');
+    const head = document.head;
+    const linkEstiloPdf = document.createElement('link');
+    linkEstiloPdf.rel = 'stylesheet';
+    linkEstiloPdf.href = 'pdf-styles.css'; // O nome do seu arquivo é pdf-styles.css
+
+    const opt = {
+        margin:       0.1,
+        filename:     'relatorio_plano_alimentar.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }, // Pode manter portrait aqui
+    };
+
+    // Aplica o link de estilo do PDF
+    if (linkEstiloPrincipal) linkEstiloPrincipal.disabled = true;
+    
+    linkEstiloPdf.onload = () => {
+        // --- NOVA LINHA: Aplica a escala ANTES de gerar o PDF ---
+        elementoParaImprimir.style.transform = 'scale(0.7)';
+
+        html2pdf().set(opt).from(elementoParaImprimir).save().then(() => {
+            // --- NOVA LINHA: Remove a escala DEPOIS de gerar o PDF ---
+            elementoParaImprimir.style.transform = 'none';
+
+            // Limpeza dos estilos
+            head.removeChild(linkEstiloPdf);
+            if (linkEstiloPrincipal) linkEstiloPrincipal.disabled = false;
+        });
+    };
+    head.appendChild(linkEstiloPdf);
 });
