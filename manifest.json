@@ -2,7 +2,7 @@
     "name": "Plano Alimentar Piscicultura",
     "short_name": "Piscicultura",
     "description": "Uma ferramenta para calcular e projetar o plano alimentar na piscicultura.",
-    "start_url": ".",
+    "start_url": "ProgramaAlimentar.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#0056b3",
@@ -13,7 +13,7 @@
             "sizes": "192x192"
         },
         {
-            "src": "ícones/ícone-512.png",
+            "src": "ícones/ícone-512.jpg",
             "type": "image/png",
             "sizes": "512x512"
         }
